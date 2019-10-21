@@ -1,47 +1,9 @@
-# version: "2"
-# services:
-#   backend:
-#     build: backend
-#     ports:
-#       - "3500:8080"
-#     # volumes:
-#     #   - ./www:/var/www/html/
-#     # links:
-#     #     - db
-#     networks:
-#       - default
-# db:
-#     image: mysql:5.7.13
-#     ports:
-#         - "3306:3306"
-#     environment:
-#         MYSQL_DATABASE: fatturazione
-#         MYSQL_USER: user
-#         MYSQL_PASSWORD: test
-#         MYSQL_ROOT_PASSWORD: test
-#     volumes:
-#         - ./db:/docker-entrypoint-initdb.d/
-#         - persistent:/var/lib/mysql
-#     networks:
-#         - default
-# phpmyadmin:
-#     image: phpmyadmin/phpmyadmin:4.8.2
-#     links:
-#         - db:db
-#     ports:
-#         - 8000:80
-#     environment:
-#         MYSQL_USER: user
-#         MYSQL_PASSWORD: test
-#         MYSQL_ROOT_PASSWORD: test
-# volumes:
-#   persistent:
-
 version: "2"
 services:
   react:
     image: "node:10"
     user: "node"
+    restart: always
     working_dir: /home/node/app
     volumes:
       - ./frontend:/home/node/app
@@ -58,8 +20,8 @@ services:
     image: "node:10"
     user: "node"
     working_dir: /home/node/app
-    # links:
-    #   - db
+    links:
+      - db
     volumes:
       - ./backend:/home/node/app
     expose:
@@ -69,6 +31,35 @@ services:
     command: "yarn start"
     networks:
       - mynet
+
+  db:
+    image: postgres:9.6.15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pwd
+      POSTGRES_DB: gestionale
+    networks:
+      - mynet
+    volumes:
+      - database_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  adminer:
+    image: adminer:4.7.3
+    restart: always
+    ports:
+      - 4000:8080
+    links:
+      - db
+    networks:
+      - mynet
+
 networks:
   mynet:
     driver: bridge
+
+volumes:
+  database_data:
+    driver: local

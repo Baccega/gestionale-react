@@ -1,8 +1,14 @@
-const handler_v1 = async (request, reply) => {
+const root = async (request, reply) => {
 	reply.send({ hello: "world" });
 };
 
 module.exports = function(fastify, opts, done) {
-	fastify.get("/", handler_v1);
+	fastify.get("/", root);
+	fastify.get("/colori", async (request, reply) => {
+		const client = await fastify.pg.connect();
+		const { rows } = await client.query("SELECT * FROM colori");
+		client.release();
+		return rows;
+	});
 	done();
 };
