@@ -39,12 +39,27 @@
 
 version: "2"
 services:
+  react:
+    image: "node:10"
+    user: "node"
+    working_dir: /home/node/app
+    volumes:
+      - ./frontend:/home/node/app
+    expose:
+      - "3000"
+    links:
+      - node
+    ports:
+      - "3000:3000"
+    command: "yarn start"
+    networks:
+      - mynet
   node:
     image: "node:10"
     user: "node"
     working_dir: /home/node/app
-    # environment:
-    #   - NODE_ENV=production
+    # links:
+    #   - db
     volumes:
       - ./backend:/home/node/app
     expose:
@@ -52,3 +67,8 @@ services:
     ports:
       - "3500:8080"
     command: "yarn start"
+    networks:
+      - mynet
+networks:
+  mynet:
+    driver: bridge
