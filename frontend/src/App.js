@@ -8,6 +8,7 @@ import Prodotti from "./pages/Prodotti";
 import Aziende from "./pages/Aziende";
 import MyDrawer from "./containers/MyDrawer";
 import { appReducer, initialState } from "./Reducer";
+import { useFetch } from "./utils";
 
 const styles = theme => ({
 	appRoot: {
@@ -34,6 +35,13 @@ function App(props) {
 	useEffect(() => {
 		console.log("App state changed");
 	}, [state]);
+
+	useFetch(() => "sdf");
+
+	// const testAPI = async () => {
+	// 	const res = await fetch("http://0.0.0.0:3500/v1");
+	// 	const json = await res.json();
+	// };
 
 	return (
 		<div className={classes.appRoot}>

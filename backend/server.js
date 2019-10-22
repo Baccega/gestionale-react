@@ -1,6 +1,6 @@
 const hostname = "0.0.0.0";
 const port = 8080;
-const allowed_origins = ["http://0.0.0.0:3000"];
+const allowed_origins = ["http://0.0.0.0:3000", "http://localhost:3000"];
 const db_link = "postgres://postgres:pwd@db/gestionale";
 
 const fastify = require("fastify")({ logger: true });

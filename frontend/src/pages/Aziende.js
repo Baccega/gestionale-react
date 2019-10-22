@@ -99,7 +99,7 @@ function Aziende(props) {
 										</TableCell>
 										<TableCell>{row.ragioneSociale}</TableCell>
 										<TableCell>{row.piva}</TableCell>
-										<TableCell>{row.nGiorni}</TableCell>
+										<TableCell>{row.giorni}</TableCell>
 										<TableCell>{row.indirizzo}</TableCell>
 										<TableCell>{row.citta}</TableCell>
 										<TableCell>{row.provincia}</TableCell>

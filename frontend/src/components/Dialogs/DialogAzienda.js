@@ -11,6 +11,7 @@ import {
 	MenuItem
 } from "@material-ui/core/";
 import { Context } from "../../App";
+import { useFetchPost, fetchPost } from "../../utils";
 
 const styles = theme => ({
 	formContainer: {
@@ -49,6 +50,15 @@ function DialogAzienda(props) {
 	const [state, setState] = useState({});
 	const { appState, dispatch } = useContext(Context);
 
+	const addAziendaAPI = async payload => {
+		const newId = await fetchPost("aziende", payload);
+		dispatch({
+			type: "azienda-update",
+			selectedId: state.id,
+			payload: { ...state, id: newId }
+		});
+	};
+
 	useEffect(() => {
 		if (props.selectedId !== "") {
 			setState(appState.aziende.find(found => found.id === props.selectedId));
@@ -62,7 +72,7 @@ function DialogAzienda(props) {
 				citta: "",
 				provincia: "",
 				cap: "",
-				nGiorni: 0,
+				giorni: 0,
 				codiceFiscale: "",
 				nome: "",
 				cognome: "",
@@ -84,6 +94,7 @@ function DialogAzienda(props) {
 	const addAzienda = e => {
 		e.preventDefault();
 		dispatch({ type: "azienda-add", payload: state });
+		addAziendaAPI(state);
 		closeDialog();
 	};
 
@@ -165,7 +176,7 @@ function DialogAzienda(props) {
 					<TextField
 						InputLabelProps={{ shrink: true }}
 						margin="normal"
-						name="nGiorni"
+						name="giorni"
 						label="N. Giorni"
 						type="number"
 						inputProps={{
@@ -174,7 +185,7 @@ function DialogAzienda(props) {
 						required
 						className={classes.textFieldSmall}
 						onChange={handleInput}
-						value={state.nGiorni}
+						value={state.giorni}
 						InputProps={{
 							startAdornment: (
 								<InputAdornment position="start">Giorni</InputAdornment>

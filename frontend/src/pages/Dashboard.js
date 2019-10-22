@@ -4,21 +4,17 @@ import { Context } from "../App";
 
 const styles = theme => ({});
 
-const testAPI = async () => {
-	const res = await fetch("http://0.0.0.0:3500/v1");
-	console.log(res);
-	const json = await res.json();
-	console.log(json);
-};
+// const testAPI = async () => {
+// 	const res = await fetch("http://0.0.0.0:3500/v1");
+// 	const json = await res.json();
+// };
 
 function Dashboard(props) {
 	// const { classes } = props;
 
 	const { appState } = useContext(Context);
 
-	testAPI();
-
-	return <>{appState.udm[0]}</>;
+	return <>{appState.search}</>;
 }
 
 export default withStyles(styles, { withTheme: true })(Dashboard);

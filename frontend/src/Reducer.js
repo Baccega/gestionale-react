@@ -1,5 +1,6 @@
 export const initialState = {
 	search: "",
+	loading: false,
 	fatture: [
 		{
 			id: 1,
@@ -72,7 +73,7 @@ export const initialState = {
 			citta: "PADOVA",
 			provincia: "PD",
 			cap: "35010",
-			nGiorni: 60,
+			giorni: 60,
 			codiceFiscale: "11122233344",
 			nome: "",
 			cognome: "",
@@ -99,6 +100,12 @@ export const appReducer = (state, action) => {
 				return {
 					...state,
 					search: action.payload
+				};
+			}
+			case "loading-update": {
+				return {
+					...state,
+					loading: action.payload
 				};
 			}
 			case "reset": {
