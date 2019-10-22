@@ -33,7 +33,8 @@ services:
       - mynet
 
   db:
-    image: postgres:9.6.15
+    build: ./db
+    container_name: postgres
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -42,7 +43,7 @@ services:
     networks:
       - mynet
     volumes:
-      - database_data:/var/lib/postgresql/data
+      - database_data:/data
     ports:
       - 5432:5432
 
