@@ -13,7 +13,7 @@ services:
       - node
     ports:
       - "3000:3000"
-    command: "yarn start"
+    command: bash -c "yarn && yarn start"
     networks:
       - mynet
   node:
@@ -28,7 +28,7 @@ services:
       - "8080"
     ports:
       - "3500:8080"
-    command: "yarn start"
+    command: bash -c "yarn && yarn start"
     networks:
       - mynet
 
