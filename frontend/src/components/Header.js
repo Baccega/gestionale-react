@@ -74,7 +74,7 @@ function Header(props) {
 						noWrap
 					>
 						{location.pathname === "/dashboard"
-							? "Gestionale Bertazzo Stefano"
+							? "Gestionale React"
 							: ""}
 						{location.pathname === "/fatture" ? "Fatture" : ""}
 						{location.pathname === "/prodotti" ? "Prodotti" : ""}
