@@ -3,7 +3,7 @@
 		"start": "nodemon server.js"
 	},
 	"dependencies": {
-		"fastify": "^2.10.0",
+		"fastify": "^2.15.1",
 		"fastify-cors": "^2.1.3",
 		"fastify-postgres": "^2.0.0",
 		"nodemon": "^1.19.4",
